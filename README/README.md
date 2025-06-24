@@ -13,7 +13,7 @@ Evaluates zero trust framework for satellite communications with post-quantum en
 
 ## Dependencies
 
-2. Install Dependencies:
+1. Install Dependencies:
    ```bash
    pip install --upgrade pip
    pip install numpy
@@ -23,13 +23,13 @@ Evaluates zero trust framework for satellite communications with post-quantum en
 
 ## Generate Data
 
-3. Generate Data
+1. Generate Data
    ```bash
    python scripts/generate_data.py
    
 ## Training
 
-4. Training
+1. Training
    ```bash
    python scripts/train_gnn_network.py
    python scripts/train_distilbert_attack.py
@@ -40,6 +40,8 @@ Evaluates zero trust framework for satellite communications with post-quantum en
    python scripts/run_all_tests.py
 
 ## Analysis
+
+1. Analysis
 
 ```bash
 python scripts/analyze_results.py
