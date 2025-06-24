@@ -11,20 +11,27 @@ def simulate_crypto(config):
     key_size = config["key_size"]
     tpm_op = config["tpm_operation"]
 
+    # Ensure TPM state directory exists
+    tpm_dir = os.path.abspath("../tpm/tpm_state")
+    data_file = os.path.join(tpm_dir, "data")
+    with open(data_file, "w") as f:
+        f.write("test_data")
+
     # Simulate TPM operation
-    tpm_dir = "../tpm/tpm_state"
     try:
         if tpm_op == "key_gen":
-            cmd = ["tpm2_create", "-C", "o", "-u", f"{tpm_dir}/key.pub", "-r", f"{tpm_dir}/key.priv"]
+            cmd = ["tpm2_create", "-C", "o", "-u", os.path.join(tpm_dir, "key.pub"), "-r",
+                   os.path.join(tpm_dir, "key.priv")]
             subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         elif tpm_op == "sign":
-            cmd = ["tpm2_sign", "-c", f"{tpm_dir}/key.priv", "-m", f"{tpm_dir}/data", "-s", f"{tpm_dir}/sig"]
+            cmd = ["tpm2_sign", "-c", os.path.join(tpm_dir, "key.priv"), "-m", data_file, "-s",
+                   os.path.join(tpm_dir, "sig")]
             subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         elif tpm_op == "attestation":
             cmd = ["tpm2_pcrread", "sha256:0"]
             subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        print(f"TPM operation {tpm_op} failed, simulating latency...")
+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"TPM operation {tpm_op} failed: {e}, simulating latency...")
 
     # Measure PQC operation
     start = time.time()
