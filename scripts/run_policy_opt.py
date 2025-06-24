@@ -11,8 +11,8 @@ class PolicyTestDataset(Dataset):
 
     def __len__(self): return len(self.data)
 
-    def __getitem__(self, idx): return np.array([float(x) for x in self.data.iloc[idx]["state"].split(',')],
-                                                dtype=np.float32)
+    def __getitem__(self, idx): return np.array([float(x) for x in self.data.iloc[idx]["state"].split(',')] + [
+        1 if self.data.iloc[idx]["tpm_policy"] == "attest_1s" else 0], dtype=np.float32)
 
 
 def run_policy_opt():

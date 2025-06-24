@@ -14,7 +14,7 @@ class PacketDataset(Dataset):
     def __len__(self): return len(self.data)
 
     def __getitem__(self, idx):
-        seq = str(self.data.iloc[idx]["sequence"])
+        seq = f"{self.data.iloc[idx]['sequence']} [TPM:{self.data.iloc[idx]['tpm_command']}]"
         label = int(self.data.iloc[idx]["label"])
         encoding = self.tokenizer(seq, return_tensors="pt", padding="max_length", truncation=True, max_length=512)
         return {k: v.squeeze(0) for k, v in encoding.items()}, label

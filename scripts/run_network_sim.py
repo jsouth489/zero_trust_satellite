@@ -10,7 +10,7 @@ import numpy as np
 class GNNModel(torch.nn.Module):
     def __init__(self):
         super(GNNModel, self).__init__()
-        self.conv1 = GCNConv(1, 128)
+        self.conv1 = GCNConv(3, 128)
         self.conv2 = GCNConv(128, 64)
         self.fc = torch.nn.Linear(64, 3)
 
@@ -32,8 +32,12 @@ class NetworkTestDataset(Dataset):
     def __getitem__(self, idx):
         row = self.data.iloc[idx]
         nodes = torch.tensor([float(x) for x in row['nodes'].split(',')], dtype=torch.float).view(-1, 1)
-        edges = torch.tensor([[int(x) for x in e.split(',')] for e in row['edges'].split(';')], dtype=torch.long).t()
-        return Data(x=nodes, edge_index=edges)
+        pqc_map = {'ML-KEM-512': 0, 'ML-KEM-1024': 1, 'ML-DSA-2': 2}
+        features = torch.tensor([row['traffic'], row['tpm_attestation'], pqc_map[row['pqc_algorithm']]],
+                                dtype=torch.float).view(-1, 3)
+        edges = torch.tensor([[int(x.split(',')[0]), int(x.split(',')[1])] for x in row['edges'].split(';') if x],
+                             dtype=torch.long).t()
+        return Data(x=features.repeat(nodes.shape[0], 1), edge_index=edges)
 
 
 def run_network_sim():

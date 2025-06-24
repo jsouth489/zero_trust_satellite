@@ -1,6 +1,8 @@
 import subprocess
 
 def run_all_tests():
+    print("Setting up swTPM...")
+    subprocess.run(["python", "scripts/setup_tpm.py"])
     print("Running network simulations...")
     subprocess.run(["python", "scripts/run_network_sim.py"])
     print("Running attack detection...")
