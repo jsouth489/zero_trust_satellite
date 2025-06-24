@@ -24,3 +24,24 @@ Evaluates zero trust framework for satellite communications with post-quantum en
 ## Generate Data
 
 3. Generate Data
+   ```bash
+   python scripts/generate_data.py
+   
+## Training
+
+4. Training
+   ```bash
+   python scripts/train_gnn_network.py
+   python scripts/train_distilbert_attack.py
+   python scripts/train_rl_policy.py
+   
+## Testing
+   ```bash
+   python scripts/run_all_tests.py
+
+## Analysis
+
+```bash
+python scripts/analyze_results.py
+```
+```
