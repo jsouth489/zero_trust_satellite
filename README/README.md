@@ -1,9 +1,3 @@
-# Zero Trust Satellite Research
-
-Evaluates zero trust framework for satellite communications with post-quantum encryption using 40,000 virtualized tests.
-
-## Setup
-
 # Zero Trust Satellite Research with TPM/PQC Emulation
 
 Evaluates zero trust framework for satellite communications with post-quantum encryption and TPM emulation using 40,000 virtualized tests.
