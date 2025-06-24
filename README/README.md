@@ -41,9 +41,12 @@ Evaluates zero trust framework for satellite communications with post-quantum en
 
 ## Analysis
 
-1. Analysis
+The analysis script processes results from network simulations, attack detection, policy optimization, and cryptographic performance tests.
+
+## Run Analysis
+
+Execute the analysis script to generate summary reports:
 
 ```bash
 python scripts/analyze_results.py
-```
 ```
