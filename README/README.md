@@ -300,3 +300,24 @@ Scalability: Study large constellations.
 
 Field Testing: Test on actual satellite links.
 
+
+#### Limitations and Future Research
+
+**Limitations** (Updated):
+
+| Limitation | Description |
+|------------|-------------|
+| Installation Challenges | PyTorch/swtpm/qkd-net errors may delay setup. |
+| Data Realism | Synthetic data may miss real-world satellite/TPM/QKD behaviors. |
+| Model Generalization | AI models may not capture rare PQC/TPM/QKD scenarios. |
+| Emulation Limits | swTPM lacks physical TPM’s tamper resistance; qkd-net may not fully simulate BB84. |
+| Computational Cost | Training (~1–24 hours) and testing (~10–75 minutes) are resource-intensive. |
+| Hardware Gap | Virtualized tests miss satellite/TPM/QKD hardware constraints (e.g., low entropy, power limits). |
+
+**Future Research: Prototype Testing**:
+- Use Raspberry Pi 4, RTL-SDR, OpenZiti, OQS, physical TPMs, and real QKD hardware for BB84 validation.
+- Test under real-world conditions, refine models, study scalability, and conduct field testing.
+
+#### Conclusion
+
+Research suggests OpenQKDNetwork, via qkd-net, can validate BB84 by simulating key distribution, with Python scripts automating the process. It seems likely that configuring the QLL simulator and comparing keys will suffice, though advanced validation (e.g., eavesdropping) may require customization. The evidence leans toward integrating this as an additional module, ensuring compatibility with your existing framework on Ryzen 9 9950X3D/RTX 5080, with future prototype testing enhancing realism.
